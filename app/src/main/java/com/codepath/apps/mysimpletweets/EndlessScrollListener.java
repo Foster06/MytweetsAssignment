@@ -1,9 +1,5 @@
 package com.codepath.apps.mysimpletweets;
 
-/**
- * Created by Owner on 8/4/2017.
- */
-
 
 import android.widget.AbsListView;
 

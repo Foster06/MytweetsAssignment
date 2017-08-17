@@ -14,11 +14,11 @@
         android:layout_alignParentTop="true"
         android:layout_weight="0"
         android:ems="2"
-        android:hint="@string/hint"
+        android:hint="Write your tweet !"
         android:inputType="textMultiLine"
         android:maxLength="140"
         android:textSize="12sp"
-        android:textStyle="normal" />
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/tvCounter"
@@ -42,7 +42,8 @@
         android:layout_weight="0.12"
         android:background="#4099ff"
         android:backgroundTint="#4099FF"
-        android:text="TWEET"
+        android:text="Tweet"
+        android:textStyle="bold|italic"
         android:textColor="#ffffff" />
 
     <ImageView

@@ -36,7 +36,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
     }
 
 
-    //Override and setup_costom temple
+    //Override and setup_custom template
     // ViewHolder pattern
     @NonNull
     @Override
@@ -60,7 +60,8 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         // 4. Populate data into the subviews
         tvUserName.setText(tweet.getUser().getScreeName());
         tvBody.setText(tweet.getBody());
-        ivProfileImage.setImageResource(android.R.color.transparent); // clear out the image for reclyed view
+        ivProfileImage.setImageResource(android.R.color.transparent);
+        // clear out the image for recycled view
         Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).transform(new RoundedCornersTransformation(3, 3)).into(ivProfileImage);
 
         //tweet.getUser().getScreeName();

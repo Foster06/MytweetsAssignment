@@ -3,17 +3,15 @@ package com.codepath.apps.mysimpletweets.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by Owner on 8/3/2017.
- */
-
 public class User {
-
-    // list arrtibutes
+    // list attributes
     private  String name;
     private  String screeName;
     private  String profileImageUrl;
     private  long uid;
+    private String tagline;
+    private int followersCount;
+    private int followingCount;
 
     public String getName() {
         return name;
@@ -31,6 +29,18 @@ public class User {
         return uid;
     }
 
+    public String getTagline() {
+        return tagline;
+    }
+
+    public int getFollowersCount() {
+        return followersCount;
+    }
+
+    public int getFriendsCount() {
+        return followingCount;
+    }
+
     // deserialize the user json => User
     public  static  User fromJSON(JSONObject jsonObject){
         User user =  new User();
@@ -40,6 +50,11 @@ public class User {
             user.uid = jsonObject.getLong("id");
             user.screeName = jsonObject.getString("screen_name");
             user.profileImageUrl = jsonObject.getString("profile_image_url");
+            user.tagline = jsonObject.getString("description");
+            user.followersCount = jsonObject.getInt("followers_count");
+            user.followingCount = jsonObject.getInt("friends_count");
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

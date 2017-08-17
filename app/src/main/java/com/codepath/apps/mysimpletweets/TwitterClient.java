@@ -7,6 +7,7 @@ import com.github.scribejava.apis.FlickrApi;
 import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.api.BaseApi;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 /*
@@ -19,67 +20,91 @@ import com.loopj.android.http.RequestParams;
  * Add methods for each relevant endpoint in the API.
  * 
  * NOTE: You may want to rename this object based on the service i.e TwitterClient or FlickrClient
- * 
+ *
  */
 public class TwitterClient extends OAuthBaseClient {
-	public static final BaseApi REST_API_INSTANCE = TwitterApi.instance();
-	public static final String REST_URL = "https://api.twitter.com/1.1";
-	public static final String REST_CONSUMER_KEY = "VW3FUpBlGXsq3nEWVWoDbmCaa";
-	public static final String REST_CONSUMER_SECRET = "11gDoWlLn9650ke8fVUSNhpsoynMVkYe5eowxsb81kQPEDkmEV";
-	// ...constructor and endpoints
+    public static final BaseApi REST_API_INSTANCE = TwitterApi.instance();
+    public static final String REST_URL = "https://api.twitter.com/1.1";
+    public static final String REST_CONSUMER_KEY = "j3NB4Wc8wWVcR5ZCZzEoBafX0";
+    public static final String REST_CONSUMER_SECRET = "Oamtvy3pEClYKZMWycnoTzd7l15LFRMh4QRecZ0Bi0llsUa3LL";
+    // ...constructor and endpoints
 
-	// Landing page to indicate the OAuth flow worked in case Chrome for Android 25+ blocks navigation back to the app.
-	public static final String FALLBACK_URL = "https://codepath.github.io/android-rest-client-template/success.html";
+    // Landing page to indicate the OAuth flow worked in case Chrome for Android 25+ blocks navigation back to the app.
+    public static final String FALLBACK_URL = "https://codepath.github.io/android-rest-client-template/success.html";
 
-	// See https://developer.chrome.com/multidevice/android/intents
-	public static final String REST_CALLBACK_URL_TEMPLATE = "intent://%s#Intent;action=android.intent.action.VIEW;scheme=%s;package=%s;S.browser_fallback_url=%s;end";
+    // See https://developer.chrome.com/multidevice/android/intents
+    public static final String REST_CALLBACK_URL_TEMPLATE = "intent://%s#Intent;action=android.intent.action.VIEW;scheme=%s;package=%s;S.browser_fallback_url=%s;end";
 
-	public TwitterClient(Context context) {
-		super(context, REST_API_INSTANCE,
-				REST_URL,
-				REST_CONSUMER_KEY,
-				REST_CONSUMER_SECRET,
-				String.format(REST_CALLBACK_URL_TEMPLATE, context.getString(R.string.intent_host),
-						context.getString(R.string.intent_scheme), context.getPackageName(), FALLBACK_URL));
-	}
-
-
-	//METHOD == ENDPOINT
-
-	//	HomeTimeLine - Gets us the home timeline
-	//	statuses/home_timeline.json
-	//	count=25
-	//	since_id = 1
-	//	define the endpoints which you want to retrieve data from or send data to within your client:
-	public  void geHomeTimeLine(int oldest, AsyncHttpResponseHandler handler){
-		String apiUrl = getApiUrl("statuses/home_timeline.json");
-		RequestParams params = new RequestParams();
-		params.put("count",25);
-        if (oldest == 1){
-			params.put("since_id",oldest);
-		}else {
-			params.put("since_id", 5);
-		}
-
-		getClient().get(apiUrl,params,handler);
-	}
-
-	public  void onloadNext(long since, AsyncHttpResponseHandler handler){
-        String apiUrl = getApiUrl("statuses/home_timeline.json");
-        RequestParams params = new RequestParams();
-        params.put("count",25);
-        params.put("since_id",1);
-
-        getClient().get(apiUrl,params,handler);
+    public TwitterClient(Context context) {
+        super(context, REST_API_INSTANCE,
+                REST_URL,
+                REST_CONSUMER_KEY,
+                REST_CONSUMER_SECRET,
+                String.format(REST_CALLBACK_URL_TEMPLATE, context.getString(R.string.intent_host),
+                        context.getString(R.string.intent_scheme), context.getPackageName(), FALLBACK_URL));
     }
 
 
-	public void postTweet(String body, AsyncHttpResponseHandler handler) {
-		String apiUrl = getApiUrl("statuses/update.json");
-		RequestParams params = new RequestParams();
-		params.put("status", body);
-		getClient().post(apiUrl, params, handler);
-	}
+    //METHOD == ENDPOINT
+
+    //	HomeTimeLine - Gets us the home timeline
+    //	statuses/home_timeline.json
+    //	count=25
+    //	since_id = 1
+    //	define the endpoints which you want to retrieve data from or send data to within your client:
+    public void geHomeTimeLine(int oldest, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/home_timeline.json");
+        RequestParams params = new RequestParams();
+        params.put("count", 25);
+        if (oldest == 1) {
+            params.put("since_id", oldest);
+        } else {
+            params.put("since_id", 5);
+        }
+
+        getClient().get(apiUrl, params, handler);
+    }
+
+    public void onloadNext(long since, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/home_timeline.json");
+        RequestParams params = new RequestParams();
+        params.put("count", 25);
+        params.put("since_id", 1);
+
+        getClient().get(apiUrl, params, handler);
+    }
+
+
+    public void postTweet(String body, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/update.json");
+        RequestParams params = new RequestParams();
+        params.put("status", body);
+        getClient().post(apiUrl, params, handler);
+    }
+
+    public void getMentionsTimeLine(AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+        RequestParams params = new RequestParams();
+        params.put("count", 25);
+        // Execute the request
+        getClient().get(apiUrl, params, handler);
+    }
+
+    public void getUserTimeline(String screenName, AsyncHttpResponseHandler handler){
+        String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+        RequestParams params = new RequestParams();
+        params.put("count", 25);
+        params.put("screen_name", screenName);
+        getClient().get(apiUrl, params, handler);
+    }
+
+    public void getUserInfo(AsyncHttpResponseHandler handler){
+        String apiUrl =getApiUrl("account/verify_credentials.json");
+        getClient().get(apiUrl, null, handler);
+    }
+
+
+
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
 	 * 	  i.e getApiUrl("statuses/home_timeline.json");
@@ -89,4 +114,7 @@ public class TwitterClient extends OAuthBaseClient {
 	 *    i.e client.get(apiUrl, params, handler);
 	 *    i.e client.post(apiUrl, params, handler);
 	 */
+
 }
+
+

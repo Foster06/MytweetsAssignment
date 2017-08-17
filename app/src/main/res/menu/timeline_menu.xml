@@ -7,7 +7,14 @@
         android:id="@+id/itTweet"
         app:showAsAction="ifRoom"
         android:onClick="onMenu"
+        android:icon="@drawable/ic_popup_tweet"
         />
+    <item
+        android:id="@+id/mProfile"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_profile"
+        android:title="Profile"
+        android:onClick="onProfileView"/>
 
 
 

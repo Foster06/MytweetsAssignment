@@ -8,16 +8,42 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:backgroundTint="#4099ff"
+    android:background="@drawable/twitter_background"
     tools:context=".LoginActivity">
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
         android:background="#4099ff"
         android:onClick="loginToRest"
         android:textColor="#ffffff"
-        android:text="@string/login_label" />
+        android:text="@string/login_label"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="40dp"
+        android:text="Bienvenue sur Twitter"
+        android:textColor="#fffff0"
+        android:maxLines="2"
+        android:textSize="40sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/tvDiscover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:text="Decouvrez ce qui se passe dans le monde"
+        android:layout_below="@+id/tvWelcome"
+        android:textSize="14dp"
+        android:textColor="#fffff0"/>
 
 </RelativeLayout>
